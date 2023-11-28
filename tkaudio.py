@@ -100,7 +100,7 @@ def show_figure(fig, canvas):
 
 start_time = time.time() # keeps track of our starting time
 
-tfidf = np.load('TF-IDF.npy', allow_pickle=True).item()
+tfidf = np.load('TFIDF_Vectorize.npy', allow_pickle=True).item()
 log_reg = np.load( 'IMDB_log_reg.npy', allow_pickle=True).item()
 
 # Initialize the recognizer

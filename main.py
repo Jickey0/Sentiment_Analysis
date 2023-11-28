@@ -10,7 +10,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import PySimpleGUI as sg
 
 # load in our models 
-tfidf = np.load('TF-IDF.npy', allow_pickle=True).item()
+tfidf = np.load('TFIDF_Vectorize.npy', allow_pickle=True).item()
 log_reg = np.load( 'IMDB_log_reg.npy', allow_pickle=True).item()
 
 # keeps track of our starting time
