@@ -40,7 +40,7 @@ def speechToMood():
                 
                 # Using Google to recognize audio
                 MyText = r.recognize_google(audio)
-                #MyText = MyText.lower()
+                MyText = MyText.lower()
                 
                 if "stop recording" in MyText:
                     print("session stopped")

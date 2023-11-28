@@ -19,20 +19,30 @@ start_time = time.time()
 # Initialize the recognizer
 r = sr.Recognizer()
 
+# define our GUI
+layout = [
+    [sg.Canvas(size=[400,400], key='-CANVAS-')],
+    [sg.Text('Analyze your speech! Press record and say the key word "stop recording" to end the session')],
+    [sg.Button("Record", key='-RECORD-'), sg.Exit()],
+]
+# create our window
+window = sg.Window('Sentiment Analysis', layout)
+
 def main():
-    # define our GUI
-    layout = [
-        [sg.Canvas(size=[400,400], key='-CANVAS-')],
-        [sg.Text('Analyze your speech! Press record and say the key word "stop recording" to end the session')],
-        [sg.Button("Record", key='-RECORD-'), sg.Exit()],
-    ]
-    window = sg.Window('Sentiment Analysis', layout)
+    # display window and preform event logic
     while True:
         event, values = window.read()
         print(event, values)
 
         if event == "-RECORD-":
-            runProgram()
+            x_and_y_data = speechToMood()
+            
+            # define our x's and y's
+            mood_data_x = x_and_y_data[0]
+            mood_data_y = x_and_y_data[1]
+
+            # create figure / plot
+            my_figure = show_figure(window['-CANVAS-'].TKCanvas, create_plot(mood_data_y, mood_data_x))
 
         if event == "-SUB-":
             result = int(values['-FIRST-']) - int(values['-SECOND-'])
@@ -51,17 +61,7 @@ def runProgram():
     mood_data_x = x_and_y_data[0]
     mood_data_y = x_and_y_data[1]
 
-    layout = [[sg.Text('Plot test')],
-    [sg.Canvas(size=[1050,1050], key='-CANVAS-')], # creates a medium to draw content
-    [sg.Exit()],
-    [sg.Button('Ok')]] # add button
-
-    window = sg.Window('Matplotlib In PySimpleGUI', layout, size=(715, 500), finalize=True, element_justification='center')
-
     my_figure = show_figure(window['-CANVAS-'].TKCanvas, create_plot(mood_data_y, mood_data_x))
-
-    event, values = window.read()
-    window.close()
     return
 
 # --- helper functions -- #
