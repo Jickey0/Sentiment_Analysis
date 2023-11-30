@@ -1,6 +1,5 @@
 scikit-learn
 imbalanced-learn
-seaborn
 SpeechRecognition
 gTTS
 numpy

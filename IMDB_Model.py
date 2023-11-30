@@ -18,7 +18,7 @@ my_df_concat = pd.concat([positive, negative])
 
 # https://www.youtube.com/watch?v=QAZc9xsQNjQ&t=1s&ab_channel=CS50
 # Use Random Under-Sampling to avoid overfitting the dataset
-rus = RandomUnderSampler(random_state= 0)
+rus = RandomUnderSampler(random_state = 0)
 
 # https://imbalanced-learn.org/stable/over_sampling.html
 # resample the dataset
@@ -29,7 +29,7 @@ df_review_sep = my_df_sep_resampled[0]
 df_review_sep['sentiment'] = my_df_sep_resampled[1]
 
 # seperate the data into a training and testing group
-train, test = train_test_split(df_review_sep,test_size =0.33,random_state=42)
+train, test = train_test_split(df_review_sep, test_size =0.35, random_state = 38)
 
 # seperate training and testing datasets
 train_x = train['review']
