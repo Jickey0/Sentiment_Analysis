@@ -181,16 +181,15 @@ model:
 5. https://www.analyticsvidhya.com/blog/2022/07/sentiment-analysis-using-python/
 6. https://www.youtube.com/watch?v=QAZc9xsQNjQ&t=1s&ab_channel=CS50
 7. https://imbalanced-learn.org/stable/over_sampling.html 
-8. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sparse.from_spmatrix.html
 
 Speech to Text:
-9. https://www.geeksforgeeks.org/convert-text-speech-python/
-10. https://www.geeksforgeeks.org/python-convert-speech-to-text-and-text-to-speech/#
-11. https://pypi.org/project/gTTS/
+8. https://www.geeksforgeeks.org/convert-text-speech-python/
+9. https://www.geeksforgeeks.org/python-convert-speech-to-text-and-text-to-speech/#
+10. https://pypi.org/project/gTTS/
 
 Images:
-12. https://www.clipartmax.com/middle/m2i8H7G6G6m2G6b1_rotten-tomatoes-fresh-logo/ 
+11. https://www.clipartmax.com/middle/m2i8H7G6G6m2G6b1_rotten-tomatoes-fresh-logo/ 
 
 More Info:
-13. https://statisticsbyjim.com/regression/overfitting-regression-models/
-14. https://monkeylearn.com/blog/what-is-tf-idf/ 
+12. https://statisticsbyjim.com/regression/overfitting-regression-models/
+13. https://monkeylearn.com/blog/what-is-tf-idf/ 
