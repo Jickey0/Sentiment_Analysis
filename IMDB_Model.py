@@ -44,10 +44,6 @@ train_x_vector = tfidf.fit_transform(train_x)
 # use the training data to improve/train the model
 test_x_vector = tfidf.transform(test_x)
 
-# seperate the dataframe with sparse
-# https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sparse.from_spmatrix.html
-#pd.DataFrame.sparse.from_spmatrix(train_x_vector, index = train_x.index, columns = tfidf.get_feature_names_out())
-
 # define our logistic regression model using sklearn
 log_reg = LogisticRegression()
 
