@@ -8,10 +8,11 @@ import time
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import PySimpleGUI as sg
+import joblib
 
 # load in our models 
-tfidf = np.load('TFIDF_Vectorize.npy', allow_pickle=True).item()
-log_reg = np.load( 'IMDB_log_reg.npy', allow_pickle=True).item()
+tfidf = np.load('models/TFIDF_Vectorize.npy', allow_pickle = True).item()
+log_reg = joblib.load('models/IMDB_log_reg.joblib')
 
 # keeps track of our starting time
 start_time = time.time()
@@ -19,14 +20,26 @@ start_time = time.time()
 # Initialize the recognizer
 r = sr.Recognizer()
 
+# define our total transcribed message
+all_words = ""
+
+# define final message's happiness percent
+final_happiness_percent = '?'
+
 # define our GUI
 layout = [
-    [sg.Canvas(size=[400,400], key='-CANVAS-')],
     [sg.Text('Analyze your speech! Press record and say the key word "stop recording" to end the session')],
     [sg.Button("Record", key='-RECORD-'), sg.Exit()],
+    [sg.Canvas(size=[400, 4], key='-CANVAS-')],
+    [sg.Text(key='-OUT-', font=('Arial Bold', 18), expand_x = True, justification='center')],
+    [sg.Canvas(size=[400, 4], key='-PADDING-')],
+    [sg.Image('images/tomato.png', expand_x=True, expand_y=True )],
 ]
 # create our window
 window = sg.Window('Sentiment Analysis', layout)
+
+# define our recording stop and start trigger
+startRecording = True
 
 def main():
     # display window and preform event logic
@@ -35,31 +48,33 @@ def main():
         print(event, values)
 
         if event == "-RECORD-":
+            # start the recording
+            startRecording = True
+            
             x_and_y_data = speechToMood()
             
             # define our x's and y's
             mood_data_x = x_and_y_data[0]
             mood_data_y = x_and_y_data[1]
+            final_happiness_percent = "Overall your message was: " + str(x_and_y_data[2][0])
+            
+            # add final prediction to screen
+            window['-OUT-'].update(final_happiness_percent)
 
             # create figure / plot
             my_figure = show_figure(window['-CANVAS-'].TKCanvas, create_plot(mood_data_y, mood_data_x))
-
-        if event == "-SUB-":
-            result = int(values['-FIRST-']) - int(values['-SECOND-'])
-
-        # TODO: add live text to speech when talking
-        # window['-OUT-'].update(result)
 
         if event == psg.WIN_CLOSED or event == 'Exit':
             break
     window.close()
 
-# --- main abstracted recording function -- #
+# --- main recording function -- #
 
 def runProgram():
     x_and_y_data = speechToMood()
     mood_data_x = x_and_y_data[0]
     mood_data_y = x_and_y_data[1]
+    
 
     my_figure = show_figure(window['-CANVAS-'].TKCanvas, create_plot(mood_data_y, mood_data_x))
     return
@@ -81,7 +96,7 @@ def speechToMood():
     all_words = ""
     
     # Loop infinitely for the user to speak
-    while True:
+    while startRecording == True:
     # Exception handling to handle exceptions at runtime
         try:
             # Use the microphone as the source for input.
@@ -100,8 +115,8 @@ def speechToMood():
                     print("session stopped")
                     break
                 
-                print("hellow?")
                 print("Did you say: " + MyText)
+                #window['-OUT-'].update(result)
                 
                 input_vector = tfidf.transform([MyText])
                 
@@ -126,7 +141,11 @@ def speechToMood():
             print("say something")
             continue
     
-    return (mood_data_x, mood_data_y)
+    # Make final predictions using entire message
+    input_vector = tfidf.transform([all_words])
+    final_total_prediction = log_reg.predict(input_vector)
+    
+    return (mood_data_x, mood_data_y, final_total_prediction)
 
 def create_plot(happiness, time):
     # plot probability data from recording
@@ -136,8 +155,8 @@ def create_plot(happiness, time):
     plt.show()
     return plt.gcf() # returns our graph as a figure
 
-def show_figure(fig, canvas):
-    fc_agg = FigureCanvasTkAgg(fig, canvas)
+def show_figure(canvas, fig):
+    fc_agg = FigureCanvasTkAgg(canvas, fig)
     fc_agg.draw()
     fc_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
 

@@ -42,7 +42,9 @@ model:
 4. https://huggingface.co/blog/sentiment-analysis-python
 5. https://www.analyticsvidhya.com/blog/2022/07/sentiment-analysis-using-python/
 6. https://www.youtube.com/watch?v=QAZc9xsQNjQ&t=1s&ab_channel=CS50
+7. https://imbalanced-learn.org/stable/over_sampling.html 
+8. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sparse.from_spmatrix.html
 
 Speech to Text:
-7. https://www.geeksforgeeks.org/convert-text-speech-python/
-8. https://www.geeksforgeeks.org/python-convert-speech-to-text-and-text-to-speech/#
+9. https://www.geeksforgeeks.org/convert-text-speech-python/
+10. https://www.geeksforgeeks.org/python-convert-speech-to-text-and-text-to-speech/#
